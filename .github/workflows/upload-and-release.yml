@@ -1,0 +1,62 @@
+name: Release
+
+on:
+  push:
+    branches: [ main ]
+
+permissions: write-all
+
+jobs:
+  upload-artifact:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          submodules: 'recursive'
+
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%d-%m-%Y')"
+
+      - name: Generate SC report PDF
+        uses: xu-cheng/latex-action@v2
+        with:
+          working_directory: "./src"
+          root_file: "index.tex"
+      
+      - name: Change report name
+        run: |
+          mv ./src/index.pdf ./src/SCReport.pdf
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: sc-report
+          path: ./src/SCReport.pdf
+
+  release:
+    runs-on: ubuntu-latest
+    needs: upload-artifact
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: sc-report
+          path: reports
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v3
+        id: semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          semantic_version: 16

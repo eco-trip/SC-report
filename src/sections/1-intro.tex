@@ -20,11 +20,9 @@ Il contributo tecnologico apportato dal progetto si riassume in:
 \begin{itemize}
     \item \textbf{centralina} (\textit{control unit}): dispositivo hardware, nello specifico un computer/micro-controllore installato in ogni stanza, che si occupa di rilevare periodicamente fattori ambientali e consumi elettrici/idrici tramite sensori opportunamente connessi. Questi sono stati programmati singolarmente avvalendosi dei manuali forniti dai produttori. Infine, si è realizzato un software ad-hoc che definisce la \textit{business logic} della centralina. Questo ad intervalli regolari interroga i sensori, acquisisce i dati e ne invia un aggregato ad una piattaforma in cloud. 
     \item \textbf{piattaforma in cloud}: si è scelto di usufruire dell'ecosistema di Amazon AWS per semplificare la gestione/mantenimento delle centraline (AWS IoT Core), mantenere in memoria le informazioni (AWS Cognito) ed implementare la formula del calcolo del punteggio tramite \textit{lambda}.
-    \item \textbf{dashboard}: applicazione \textit{front-end} utilizzata da un \textit{hotelier} per registrare i pernottamenti e segnalare eventuali malfunzionamenti delle centraline.
+    \item \textbf{pannello di controllo}: applicazione \textit{frontend} utilizzata sia dagli amministratori di Ecotrip, sia dagli \textit{hotelier}. I primi si occupano dalla registrazione della registrazione di nuovi hotel, comprese le stanze, della creazione degli \textit{account} per gli albergatori e del monitoraggio delle centraline. I secondi invece usufruiscono del pannello al fine di registrare i pernottamenti.
     \item \textbf{app}: applicazione lato smartphone, consente all'ospite di visualizzare il proprio "punteggio sostenibilità" associato ad un determinato pernottamento, allo scopo di evidenziarne l'attitudine al corretto consumo delle risorse o viceversa allo spreco.
 \end{itemize}
 Il sistema Ecotrip si presenta come un valido prodotto data la possibilità di installarlo su hotel preesistenti senza aggravio di eccessivi costi di ristrutturazione. Inoltre, l'ottimizzazione dei consumi non si effettua solo tramite automazione ma necessità del contributo personale dell'utente. Questo deve essere sensibilizzato alla eco-sostenibilità ed qui che entra in gioco il concetto di "gamification" implementato dal sistema che diventa viatico alla riduzione degli sprechi.
-
-Da questo obiettivo di business abbiamo effettuato l'analisi di dominio partendo con alcune sessioni di \textit{knowledge crunching} con il cliente.
 
 \newpage

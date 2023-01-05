@@ -1,108 +1,163 @@
-\documentclass[12pt,a4paper]{article}
-\usepackage[a4paper, total={6in, 9in}]{geometry}
-\usepackage[italian]{babel}
-\usepackage{newlfont}
-\usepackage{float}
-\usepackage{wrapfig}
-\usepackage{natbib}
+% \documentclass[12pt,a4paper]{article}
+% % \usepackage[a4paper, total={6in, 9in}]{geometry}
+% \usepackage[italian]{babel}
+% % \usepackage{newlfont}
+% % \usepackage{float}
+% % \usepackage{wrapfig}
+% % \usepackage{natbib}
+% \usepackage{graphicx}
+% \usepackage{listings}
+% \usepackage{xcolor}
+% % \usepackage{color}
+% \usepackage{hyperref}
+% % \usepackage{titling}
+% % \usepackage{caption}
+% \graphicspath{{/home/alberto/workspace/ecotrip/SC-report/src/images//}}
+
+% % \captionsetup[figure]{font=small,labelfont=bf,justification=centering,margin=1.5cm}
+
+% \newcommand{\emailaddr}[1]{\href{mailto:#1}{\texttt{#1}}}
+
+% \newcommand{\subtitle}[1]{%
+%   \posttitle{%
+%     \par\end{center}
+%     \begin{center}\Large#1\end{center}
+%     \vskip0.5em}%
+% }
+
+% \renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
+% \renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}}
+% \renewcommand{\labelenumiv}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}}
+
+% \definecolor{mygray}{rgb}{0.5,0.5,0.5}
+% \definecolor{mydarkgray}{rgb}{0.4,0.4,0.4}
+% \definecolor{mylightgray}{rgb}{0.9,0.9,0.9}
+% \definecolor{mygreen}{rgb}{0.0,0.45,0.0}
+
+% \lstdefinestyle{bash}{
+%   numbers=none,  
+%   keywords={npm,cd},
+%   keywordstyle=\color{mygreen}\bfseries,
+%   comment=[l]{\#},
+%   commentstyle=\color{mydarkgray}
+% }
+
+% \lstdefinestyle{java}{
+% 	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+%   keywordstyle=\color{blue}\bfseries,
+%   ndkeywords={class, export, boolean, throw, implements, import, this},
+%   ndkeywordstyle=\color{darkgray}\bfseries,
+%   identifierstyle=\color{black},
+%   comment=[l]{//},
+%   morecomment=[s]{/*}{*/},
+%   stringstyle=\color{red}\ttfamily,
+%   morestring=[b]'
+% }
+
+% \lstset{
+%   basicstyle=\footnotesize\ttfamily,
+%   backgroundcolor=\color{mylightgray},
+%   frame=none,
+%   tabsize=2,
+%   aboveskip=1em,
+% 	belowskip=1em,
+%   sensitive=false,
+%   breaklines=true,
+% }
+
+% \hypersetup{
+%   colorlinks=true,
+%   linkcolor=black,
+%   citecolor=black,
+%   urlcolor=black,
+%   filecolor=black      
+% }
+
+% \graphicspath{ {img/} }
+
+% \textwidth=450pt\oddsidemargin=0pt
+
+% \begin{document}
+
+% \title{\LARGE \bf
+%     Ecotrip
+% }
+
+% % \subtitle{Incentivo alla sostenibilità nel settore ospitality tramite gamification}
+
+% \author{
+%     Alan Mancini \\ \emailaddr{alan.mancini@studio.unibo.it}
+%     \and 
+%     Matteo Brocca \\ \emailaddr{matteo.brocca@studio.unibo.it} 
+%     \and 
+%     Alberto Marfoglia \\ \emailaddr{alberto.marfoglia@studio.unibo.it} 
+% }
+
+% \date{Maggio 2022}
+
+% \maketitle
+
+% \begin{abstract}
+% 	Il progetto tratta 
+% \end{abstract}
+
+% \newpage
+
+% \tableofcontents
+% \newpage
+
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+
+\usepackage{geometry}
+\geometry{a4paper}
 \usepackage{graphicx}
-\usepackage{listings}
-\usepackage{xcolor}
-\usepackage{color}
+\graphicspath{{./images/}}
+
+\usepackage{float}
+\usepackage[italian]{babel}
 \usepackage{hyperref}
-\usepackage{titling}
-\usepackage{caption}
 
-\captionsetup[figure]{font=small,labelfont=bf,justification=centering,margin=1.5cm}
-
-\newcommand{\emailaddr}[1]{\href{mailto:#1}{\texttt{#1}}}
-
-\newcommand{\subtitle}[1]{%
-  \posttitle{%
-    \par\end{center}
-    \begin{center}\Large#1\end{center}
-    \vskip0.5em}%
-}
-
-\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
-\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}}
-\renewcommand{\labelenumiv}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}}
-
-\definecolor{mygray}{rgb}{0.5,0.5,0.5}
-\definecolor{mydarkgray}{rgb}{0.4,0.4,0.4}
-\definecolor{mylightgray}{rgb}{0.9,0.9,0.9}
-\definecolor{mygreen}{rgb}{0.0,0.45,0.0}
-
-\lstdefinestyle{bash}{
-  numbers=none,  
-  keywords={npm,cd},
-  keywordstyle=\color{mygreen}\bfseries,
-  comment=[l]{\#},
-  commentstyle=\color{mydarkgray}
-}
-
-\lstdefinestyle{java}{
-	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
-  keywordstyle=\color{blue}\bfseries,
-  ndkeywords={class, export, boolean, throw, implements, import, this},
-  ndkeywordstyle=\color{darkgray}\bfseries,
-  identifierstyle=\color{black},
-  comment=[l]{//},
-  morecomment=[s]{/*}{*/},
-  stringstyle=\color{red}\ttfamily,
-  morestring=[b]'
-}
-
-\lstset{
-  basicstyle=\footnotesize\ttfamily,
-  backgroundcolor=\color{mylightgray},
-  frame=none,
-  tabsize=2,
-  aboveskip=1em,
-	belowskip=1em,
-  sensitive=false,
-  breaklines=true,
-}
-
-\hypersetup{
-  colorlinks=true,
-  linkcolor=black,
-  citecolor=black,
-  urlcolor=black,
-  filecolor=black      
-}
-
-\graphicspath{ {img/} }
-
-\textwidth=450pt\oddsidemargin=0pt
+\linespread{1.2}
+\setlength{\parindent}{0pt}
 
 \begin{document}
 
-\title{\LARGE \bf
-    Ecotrip
-}
+%----------------------------------------------------------------------------------------
+%	TITOLO
+%----------------------------------------------------------------------------------------
 
-\subtitle{Incentivo alla sostenibilità nel settore ospitality tramite gamification}
+\begin{titlepage}
 
-\author{
-    Alan Mancini \\ \emailaddr{alan.mancini@studio.unibo.it}
-    \and 
-    Matteo Brocca \\ \emailaddr{matteo.brocca@studio.unibo.it} 
-    \and 
-    Alberto Marfoglia \\ \emailaddr{alberto.marfoglia@studio.unibo.it} 
-}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 
-\date{Maggio 2022}
+\center
 
-\maketitle
+\textsc{\Large Relazione di progetto di "Smart City e Tecnologie Mobili"}\\[0.5cm]
 
-\begin{abstract}
-	Il progetto tratta 
-\end{abstract}
+\HRule \\[0.4cm]
+{ \huge \bfseries Ecotrip\break\break\large Incentivo alla sostenibilità nel settore ospitality tramite gamification}\\[0.4cm]
+\HRule \\[1.5cm]
 
-\newpage
+\vfill
+
+\begin{flushleft}
+\emph{Numero del gruppo:}\\[1cm]
+\emph{Componenti del gruppo: Alan Mancini, Alberto Marfoglia, Matteo Brocca}\\[3cm]
+\end{flushleft}
+
+
+
+\end{titlepage}
+
+%----------------------------------------------------------------------------------------
+%	INDICE
+%----------------------------------------------------------------------------------------
 
 \tableofcontents
+
 \newpage
 
 \include{sections/1-intro} 

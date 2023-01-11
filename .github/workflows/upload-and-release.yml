@@ -23,18 +23,18 @@ jobs:
       - name: Generate SC report PDF
         uses: xu-cheng/latex-action@v2
         with:
-          working_directory: "./src"
+          working_directory: "."
           root_file: "index.tex"
       
       - name: Change report name
         run: |
-          mv ./src/index.pdf ./src/SCReport.pdf
+          mv ./index.pdf ./SCReport.pdf
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: sc-report
-          path: ./src/SCReport.pdf
+          path: ./SCReport.pdf
 
   release:
     runs-on: ubuntu-latest

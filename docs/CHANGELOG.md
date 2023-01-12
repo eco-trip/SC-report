@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/eco-trip/SC-report/compare/v1.0.0...v1.1.0) (2023-01-12)
+
+
+### Features
+
+* a better intro ([087e9fe](https://github.com/eco-trip/SC-report/commit/087e9fecf792274f80bee2f232827492038606e0))
+
 # 1.0.0 (2023-01-11)
 
 

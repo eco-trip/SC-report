@@ -10,19 +10,32 @@ Negli USA invece la maggior parte degli hotel non dispone di questi semplici mec
 
 Dal 2020 la \href{https://sustainablehospitalityalliance.org/}{Sustainable Hospitality Alliance}, che comprende il 30\% dell'industria alberghiera globale, si impegna a proporre linee guida e \textit{best practice} per il design e la gestione di hotel sostenibili. Tuttavia il processo per la sostenibilità è molto lungo ed impegnativo e l'alleanza è ancora in una fase preliminare di raccolta dati.
 
-Inoltre, senza immaginare l'arrivo di un evento dirompente come quello della guerra in Ucraina, il World Tourism Organization aveva divulgato un documento che riassumeva alcuni atteggiamenti utili a ridurre i consumi prodotti dal turismo. Secondo un rapporto della Commissione Europea (‘Consumption and Environment’), il settore economico del turismo si colloca al quarto posto pre fabbisogno energetico. Infine uno studio della Confesercenti rilasciato ad agosto 2022, prevede un aumento delle bollette per gli hotel di oltre 1.5 miliardi di euro nei prossimi 12 mesi.
+Inoltre il World Tourism Organization ha divulgato un documento che riassume alcuni atteggiamenti utili a ridurre i consumi prodotti dal turismo. Secondo un rapporto della Commissione Europea (‘Consumption and Environment’), il settore economico del turismo si colloca al quarto posto pre fabbisogno energetico. Infine uno studio della Confesercenti rilasciato ad agosto 2022, prevede un aumento delle bollette per gli hotel di oltre 1.5 miliardi di euro nei prossimi 12 mesi.
 
-L'obiettivo del nostro cliente è quello di proporre all'alleanza sopracitata Ecotrip, un nuovo sistema che faccia leva direttamente sugli ospiti promuovendone un comportamento virtuoso in termini di consumi energetici/acqua. 
+Il nostro obiettivo è quello di proporre all'alleanza sopracitata Ecotrip, un nuovo sistema che faccia leva direttamente sugli ospiti promuovendone un comportamento virtuoso in termini di consumi energetici/idrici. 
+
+Il sistema è composto da una centralina, da installare nella camera d'albergo, che attraverso diversi sensori rileva i consumi di energia ed acqua e li carica su infrastruttura cloud.
+In particolare la centralina misura i consumi di energia elettrica relativi al circuito luci e al circuito prese, il flusso di acqua fredda e calda con relative temperature,
+la temperatura e umidità d'ambiente ed infine è in grado di determinare se le tende sono aperte o chiuse con sensori di luminosità ambientale.
+
+Gli ospiti attraverso un'apposita applicazione su smartphone ottengono un "punteggio sostenibilità" calcolato in base al comportamento tenuto durante il proprio periodo di pernottamento, il punteggio 
+può essere convertito in uno sconto al checkout. Per accedere ai dati del proprio pernottamento, all'ospite è richiesto semplicemente di avvicinare il suo smartphone ad un tag NFC installato all'interno della sua stanza.
+Il tag è collegato e gestito dalla centralina che lo riprogramma per ogni pernottamento inserendovi il relativo token di accesso, garantendo così la privacy degli ospiti che saranno in grado di accedere solo ai propri dati.
+
+Infine, il gestore dell'albergo dispone di un pannello di controllo per monitorare i dati delle varie stanze e gestire i pernottamenti.
+
+Il sistema Ecotrip è pensato per essere installato in aggiunta alle centraline ed impianti già esistenti nelle stanze degli Hotel. 
+Con Ecotrip l'ospite viene direttamente sensibilizzato alla eco-sostenibilità grazie a concetti di "gamification".
 
 %Il contributo tecnologico apportato dal progetto si riassume in una centralina (\textit{control unit}) installa in ogni stanza, una piattaforma in \textit{cloud} per la raccolta dei dati e un' applicazione lato smartphone che permette di mostrare all'ospite un "punteggio sostenibilità" che ne evidenza l'attitudine al corretto consumo delle risorse o viceversa allo spreco. La centralina consiste in un computer/micro-controllore che esegue un servizio sviluppato ad-hoc, il quale interroga periodicamente sensori dislocati nella stanza. Questi rilevano fattori ambientali come illuminazione e temperatura della stanza ma anche consumi elettrici/idrici.
 
-Il contributo tecnologico apportato dal progetto si riassume in:
+Il contributo tecnologico apportato dal progetto comprende:
 \begin{itemize}
-    \item \textbf{centralina} (\textit{control unit}): dispositivo hardware, nello specifico un computer/micro-controllore installato in ogni stanza, che si occupa di rilevare periodicamente fattori ambientali e consumi elettrici/idrici tramite sensori opportunamente connessi. Questi sono stati programmati singolarmente avvalendosi dei manuali forniti dai produttori. Infine, si è realizzato un software ad-hoc che definisce la \textit{business logic} della centralina. Questo ad intervalli regolari interroga i sensori, acquisisce i dati e ne invia un aggregato ad una piattaforma in cloud. 
-    \item \textbf{piattaforma in cloud}: si è scelto di usufruire dell'ecosistema di Amazon AWS per semplificare la gestione/mantenimento delle centraline (AWS IoT Core), mantenere in memoria le informazioni (AWS Cognito) ed implementare la formula del calcolo del punteggio tramite \textit{lambda}.
-    \item \textbf{pannello di controllo}: applicazione \textit{frontend} utilizzata sia dagli amministratori di Ecotrip, sia dagli \textit{hotelier}. I primi si occupano dalla registrazione della registrazione di nuovi hotel, comprese le stanze, della creazione degli \textit{account} per gli albergatori e del monitoraggio delle centraline. I secondi invece usufruiscono del pannello al fine di registrare i pernottamenti.
-    \item \textbf{app}: applicazione lato smartphone, consente all'ospite di visualizzare il proprio "punteggio sostenibilità" associato ad un determinato pernottamento, allo scopo di evidenziarne l'attitudine al corretto consumo delle risorse o viceversa allo spreco.
+    \item l'ingegnerizzazione della centralina che si occupa di rilevare periodicamente fattori ambientali e consumi elettrici/idrici tramite sensori opportunamente connessi e programmati; questa si occupa anche di inviare i dati campionati sulla piattaforma cloud e di gestire il tag NFC. 
+    \item Impiego della piattaforma cloud Amazon AWS per realizzare un'infrastuttura a microservizi che permetta la gestione delle centraline (AWS IoT Core), memorizzare i dati (AWS DynamoDB), gestire gli account/autenticazioni (AWS Cognito), calcolare i punteggi sostenibilità e generare le autorizzazioni per i visitatori con funzioni \textit{lambda}, ed infine fornire il pannello di controllo e l'app (AWS EC2 / S3).
+    \item Sviluppo applicativo composto da frontend (React) e backend (Nodejs) utilizzata sia dagli amministratori di Ecotrip, sia dagli albergatori. 
+    \item Sviluppo web app (React) che consente all'ospite di visualizzare il proprio "punteggio sostenibilità" associato ad un determinato pernottamento.
 \end{itemize}
-Il sistema Ecotrip si presenta come un valido prodotto data la possibilità di installarlo su hotel preesistenti senza aggravio di eccessivi costi di ristrutturazione. Inoltre, l'ottimizzazione dei consumi non si effettua solo tramite automazione ma necessità del contributo personale dell'utente. Questo deve essere sensibilizzato alla eco-sostenibilità ed qui che entra in gioco il concetto di "gamification" implementato dal sistema che diventa viatico alla riduzione degli sprechi.
+
 
 \newpage

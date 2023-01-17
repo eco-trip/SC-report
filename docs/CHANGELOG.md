@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/eco-trip/SC-report/compare/v1.2.0...v1.3.0) (2023-01-17)
+
+
+### Features
+
+* complete design section ([a8c11b3](https://github.com/eco-trip/SC-report/commit/a8c11b3607f043e6421b246f42aec6bee1646fce))
+
 # [1.2.0](https://github.com/eco-trip/SC-report/compare/v1.1.1...v1.2.0) (2023-01-14)
 
 

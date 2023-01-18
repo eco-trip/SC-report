@@ -40,42 +40,75 @@ Dopo un'attenta fase di ricerca e un confronto tra le diverse soluzioni, si opta
 %
 \textbf{ICQUANZX PN532 NFC}\footnote{Link al venditore: \href{https://www.amazon.it/ICQUANZX-Communication-Arduino-Raspberry-Android/dp/B07VT431QZ/}{https://www.amazon.it/ICQUANZX}}: modulo di trasmissione altamente integrato per la comunicazione NFC (Near Field Communication) a 13.56 MHz. Il sensore è dotato di un interruttore con il quale è possibile cambiare la modalità scegliendo tra I2C, SPI e UART. Inoltre, il modulo supporta la lettura/scrittura RFID e possiede 4 fori di montaggio da 3mm. 
     
-    \begin{table}[H]
-        \centering
-        \begin{tabular}{|l|l|}
-        \hline
-        \textbf{Caratteristica}     & \textbf{Descrizione}                      \\ \hline        Protocollo di comunicazione                   & I2C\footnote{Per dettagli: \url{https://www.i2c-bus.org/}}, SPI and HSU (High Speed UART)                                                                                                                     \\ \hline
-        Supporto RFID                                 & \begin{tabular}[c]{@{}l@{}}modalità in lettura o scrittura:\\   - Mifare 1k, 4k, Ultralight, and DesFire cards\\   - ISO/IEC 14443-4 card\end{tabular} \\ \hline
-        Distanza di comunicazione                     & 5cm$\sim$7cm (PCB Antenna)                                                                                                                             \\ \hline
-        Virtualizzazione                              & può funzionare come una carta virtuale                                                                                                                 \\ \hline
-        Dimensioni                                    & 43mm x 41mm x 4mm                                                                                                                                          \\ \hline
-        \end{tabular}
-        \caption{\label{pn532-features}Caratteristiche principali del modulo PN-532.}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|}
+    \hline
+    \textbf{Caratteristica}     & \textbf{Descrizione}                      \\ \hline        Protocollo di comunicazione                   & I2C\footnote{Per dettagli: \url{https://www.i2c-bus.org/}}, SPI and HSU (High Speed UART)                                                                                                                     \\ \hline
+    Supporto RFID                                 & \begin{tabular}[c]{@{}l@{}}modalità in lettura o scrittura:\\   - Mifare 1k, 4k, Ultralight, and DesFire cards\\   - ISO/IEC 14443-4 card\end{tabular} \\ \hline
+    Distanza di comunicazione                     & 5cm$\sim$7cm (PCB Antenna)                                                                                                                             \\ \hline
+    Virtualizzazione                              & può funzionare come una carta virtuale                                                                                                                 \\ \hline
+    Dimensioni                                    & 43mm x 41mm x 4mm                                                                                                                                          \\ \hline
+    \end{tabular}
+    \caption{\label{pn532-features}Caratteristiche principali del modulo PN-532.}
 
-    \end{table}
+\end{table}
 
-    La modalità di funzionamento determina anche la configurazione a livello di circuito (alimentazione).
-    \begin{table}[H]
-        \centering
-        \begin{tabular}{|c|c|}
-        \hline
-        \textbf{Interfaccia} & \textbf{Valore}                            \\ \hline
-        VCC                & 3.3V$\sim$5V                              \\ \hline
-        I2C/UART           & 3.3V$\sim$24V TTL                         \\ \hline
-        SPI                & 3.3V TTL con 100 ohm di resistenza \\ \hline
-        \end{tabular}
-        \caption{\label{pn532-modalities}Modalità di funzionamento del modulo PN-532.}
-    \end{table}
+La modalità di funzionamento determina anche la configurazione a livello di circuito (alimentazione).
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Interfaccia} & \textbf{Valore}                            \\ \hline
+    VCC                & 3.3V$\sim$5V                              \\ \hline
+    I2C/UART           & 3.3V$\sim$24V TTL                         \\ \hline
+    SPI                & 3.3V TTL con 100 ohm di resistenza \\ \hline
+    \end{tabular}
+    \caption{\label{pn532-modalities}Modalità di funzionamento del modulo PN-532.}
+\end{table}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=0.35\textwidth]{images/sensors/pn532.png}
+    \end{center}
+    \caption{\label{pn532}Modulo PN532}
+\end{figure}
+
+Nel caso si voglia comunicare con il sensore tramite l'interfaccia I2C, è necessario impostare gli interruttori rispettivamente a \texttt{ON} e \texttt{OFF} (Tabella \ref*{tb-PN532-interfaces}). Inoltre la connessione alla scheda richiede l'utilizzo di 4 pin (Tabella \ref*{tb-PN532-conn-schema}). Una volta connesso il modulo sarà identificato dalla scheda con l'indirizzo \texttt{0x24}.
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Interfaccia} & \textbf{Canale 1} & \textbf{Canale 2} \\ \hline
+    HSU                  & OFF               & OFF               \\ \hline
+    I2C                  & ON                & OFF               \\ \hline
+    SPI                  & OFF               & ON                \\ \hline
+    \end{tabular}
+    \caption{\label{tb-PN532-interfaces}Schema di collegamento modulo PN532.}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \multicolumn{1}{|c|}{\textbf{Module PCB}} & \multicolumn{1}{c|}{\textbf{Desc}} & \multicolumn{1}{c|}{\textbf{GPIO Header Pins}} \\ \hline
+    GND                                       & Ground                             & P1-6                                          \\ \hline
+    SDA                                       & I2C SDA                            & P1-03                                          \\ \hline
+    SCL                                       & I2C SCL                            & P1-05                                          \\ \hline
+    VCC                                       & 3.3V                               & P1-01                                          \\ \hline
+    \end{tabular}
+    \caption{\label{tb-PN532-conn-schema}Schema di collegamento modulo PN532.}
+\end{table}
+
+\begin{figure}[H]
+    \begin{center}
+      \includegraphics[width=0.6\textwidth]{images/sensors/pn532-fritzing.png}
+    \end{center}
+    \caption{\label{pn532-diagram}Diagramma Fritzing del modulo PN532 (connessione I2C).}
+\end{figure}
     
-    \begin{figure}[H]
-        \begin{center}
-          \includegraphics[width=0.35\textwidth]{images/sensors/pn532.png}
-        \end{center}
-        \caption{\label{pn532}Modulo PN532}
-    \end{figure}
     
-    
-\textbf{GY-302 BH1750}\footnote{Link al venditore: \href{https://www.amazon.it/AZDelivery-Sensore-Intensità-Luminosità-Raspberry/dp/B07NLL4SCB}{https://www.amazon.it/AZDelivery-BH170}}: sensore digitale per il rilevamento della luminosità ambientale basato sull'interfaccia bus I2C; internamente monta un ADC. 
+\textbf{GY-302 BH1750}\footnote{Link al venditore: \href{https://www.amazon.it/AZDelivery-Sensore-Intensità-Luminosità-Raspberry/dp/B07NLL4SCB}{https://www.amazon.it/AZDelivery-BH170}}: sensore digitale per il rilevamento della luminosità ambientale basato sull'interfaccia bus I2C; internamente monta un ADC. Le caratteristiche complete del sensore possono essere visionate consultando la pagina del \href{https://www.mouser.com/datasheet/2/348/bh1750fvi-e-186247.pdf}{\textit{datasheet}}. 
 
 \begin{table}[H]
     \centering
@@ -98,9 +131,33 @@ Dopo un'attenta fase di ricerca e un confronto tra le diverse soluzioni, si opta
     \caption{Modulo BH1750}
 \end{figure}
 %
-\textbf{ACS712 - 20A}\footnote{Link al venditore: \href{https://www.amazon.it/AZDelivery-corrente-sensore-Current-Raspberry/dp/B0736DYV3W?th=1}{https://www.amazon.it/AZDelivery-ACS712}}: sensore di corrente usato per misurare una corrente AC o DC in un range di ±5A con un errore di 1.5\% a T = 25 °C. Il sensore è composto da due parti, un collegamento per il chip del sensore, e l'altra parte con due connettori a morsettiera per la misurazione della corrente.
-Il sensore utilizza l'effetto Hall per rilevare la corrente che lo attraversa. La corrente che fluisce attraverso il sensore genera un campo magnetico che viene rilevato dal sensore e convertito in una tensione analogica proporzionale.
+Il sensore può essere collegato al Raspberry Pi semplicemente sfruttando 4 collegamenti (o meglio 4 pin GPIO della scheda come descritto in Tabella \ref*{tb-BH1750-conn-schema}). Una volta realizzato il circuito (Figura \ref*{bh1750-diagram}), il comando \texttt{i2cdetect} restituirà in input l'indirizzo del sensore, che nel caso specifico equivale a \texttt{0x23}.
+%
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \multicolumn{1}{|c|}{\textbf{Module PCB}} & \multicolumn{1}{c|}{\textbf{Desc}} & \multicolumn{1}{c|}{\textbf{GPIO Header Pins}} \\ \hline
+    GND                                       & Ground                             & P1-14                                          \\ \hline
+    ADD                                       & Address select                     & P1-14                                          \\ \hline
+    SDA                                       & I2C SDA                            & P1-03                                          \\ \hline
+    SCL                                       & I2C SCL                            & P1-05                                          \\ \hline
+    VCC                                       & 3.3V                               & P1-01                                          \\ \hline
+    \end{tabular}
+    \caption{\label{tb-BH1750-conn-schema}Schema di collegamento modulo BH1750.}
+\end{table}
 
+\begin{figure}[H]
+    \begin{center}
+      \includegraphics[width=0.6\textwidth]{images/sensors/BH1750-fritzing.png}
+    \end{center}
+    \caption{\label{bh1750-diagram}Diagramma Fritzing del modulo BH1750.}
+\end{figure}
+
+%
+\textbf{ACS712 - 20A}\footnote{Link al venditore: \href{https://www.amazon.it/AZDelivery-corrente-sensore-Current-Raspberry/dp/B0736DYV3W?th=1}{https://www.amazon.it/AZDelivery-ACS712}}: sensore di corrente usato per misurare una corrente AC o DC in un range di ±20A con un errore di 1.5\% a T = 25 °C. Il sensore è composto da due parti, un collegamento per il chip del sensore, e l'altra parte con due connettori a morsettiera per la misurazione della corrente.
+Il sensore utilizza l'effetto Hall per rilevare la corrente che lo attraversa. La corrente che fluisce attraverso il sensore genera un campo magnetico che viene rilevato dal sensore e convertito in una tensione analogica proporzionale. Questo modulo emette tensione analogica (0 ÷ 5 V) in base al flusso di corrente nel filo su cui viene eseguita la misurazione.
+%
 \begin{table}[H]
     \centering
     \begin{tabular}{|l|l|}
@@ -121,7 +178,7 @@ Il sensore utilizza l'effetto Hall per rilevare la corrente che lo attraversa. L
     \caption{Modulo ACS712}
 \end{figure}
 
-\textbf{DHT22}\footnote{Link al venditore: \href{https://www.amazon.it/AZDelivery-temperatura-circuito-Raspberry-gratuito/dp/B078SVZB1X/ref=sr_1_6?keywords=dht22&qid=1673890614&sr=8-6&th=1}{https://www.amazon.it/AZDelivery-DHT22}}: sensore di umidità/temperatura relativa che emette un segnale digitale. Utilizza un sensore di umidità capacitivo e un termistore per misurare l'aria circostante. 
+\textbf{DHT22}\footnote{Link al venditore: \href{https://www.amazon.it/AZDelivery-temperatura-circuito-Raspberry-gratuito/dp/B078SVZB1X/ref=sr_1_6?keywords=dht22&qid=1673890614&sr=8-6&th=1}{https://www.amazon.it/AZDelivery-DHT22}}: sensore di umidità/temperatura relativa che emette un segnale digitale. Utilizza un sensore di umidità capacitivo e un termistore per misurare l'aria circostante. Nello specifico, la componente di umidità è costituita da un substrato di trattenimento che assorbe il vapore acqueo, andando ad aumentare la conduttività di due elettrodi posti agli estremi. Mentre la parte di rilevamento della temperatura del dispositivo è costituita da un sensore di temperatura NTC, cioè un termistore la cui resistenza diminuisce con l'aumentare della temperatura. Infine, c'è un piccolo PCB con un IC (circuito integrato) che esegue la conversione da analogico a digitale ed emette la coppia di valori (umidità e temperatura).
 
 \begin{table}[H]
     \centering
@@ -144,9 +201,35 @@ Il sensore utilizza l'effetto Hall per rilevare la corrente che lo attraversa. L
     \caption{Modulo DHT22.}
 \end{figure}
 
+Il dispositivo richiede solamente tre collegamenti con il Raspberry Pi: +5v, terra e un pin GPIO (Tabella \ref*{tb-dht22-conn-schema}).
 
-\textbf{ADS1115}\footnote{Link al venditore: \href{shorturl.at/btJVZ}{https://www.amazon.it/AZDelivery-ADS1115}}: convertitore da analogico a digitale, facilmente utilizzabile con una scheda Raspberry Pi utilizzando un bus di comunicazione I2C. Il convertitore ha una buona precisione poiché lavora a 16 bit e sfrutta 4 canali.  
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \multicolumn{1}{|c|}{\textbf{Modulo PCB}} & \multicolumn{1}{c|}{\textbf{Descrizione}} & \multicolumn{1}{c|}{\textbf{GPIO Pin}} \\ \hline
+    GND                                       & Ground                                    & P1-30                                  \\ \hline
+    SCL                                       & GPIO 12                                   & P1-32                                  \\ \hline
+    VCC                                       & 5V                                        & P1-02                                  \\ \hline
+    \end{tabular}
+    \caption{\label{tb-dht22-conn-schema}Schema di collegamento modulo DHT22}
+\end{table}
 
+\begin{figure}[H]
+    \begin{center}
+      \includegraphics[width=0.6\textwidth]{images/sensors/DHT22-fritzing.png}
+    \end{center}
+    \caption{\label{dht22-diagram}Diagramma Fritzing del modulo DHT22.}
+\end{figure}
+
+\textbf{ADS1115}\footnote{Link al venditore: \href{shorturl.at/btJVZ}{https://www.amazon.it/AZDelivery-ADS1115}}: convertitore da analogico a digitale, facilmente utilizzabile con una scheda Raspberry Pi utilizzando un bus di comunicazione I2C. Il convertitore ha una buona precisione poiché lavora a 16 bit e sfrutta 4 canali. Le caratteristiche complete del sensore possono essere visionabili alla pagina del \href{https://cdn-shop.adafruit.com/datasheets/ads1115.pdf}{datasheet}. 
+Il convertitore utilizza il protocollo di comunicazione I2C per diverse ragioni:
+\begin{itemize}
+    \item I2C è un protocollo di comunicazione semplice e ampiamente utilizzato, il che lo rende facile da interfacciare con una vasta gamma di microcontrollori e computer singola scheda come Raspberry Pi;
+    \item I2C è un protocollo \textit{two-wire}, cioè sono sufficienti solo due fili per il trasferimento dati e la sincronizzazione del \textit{clock}, rendendolo facile da implementare e riducendo il numero di connessioni necessarie;
+    \item I2C supporta più dispositivi sullo stesso bus, consentendo a più ADCs di essere collegati allo stesso microcontrollore o computer singola scheda.
+\end{itemize}
+    
 \begin{table}[H]
     \centering
     \begin{tabular}{|l|l|}
@@ -166,6 +249,26 @@ Il sensore utilizza l'effetto Hall per rilevare la corrente che lo attraversa. L
     \centering
     \includegraphics[width=0.35\textwidth]{images/sensors/ads1115.png}\hfill
     \caption{Modulo ADS1115.}
+\end{figure}
+Il convertitore può essere collegato al Raspberry Pi sfruttando il protocollo I2C (Tabella \ref*{tb-ADS1115-conn-schema}).
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \multicolumn{1}{|c|}{\textbf{Module PCB}} & \multicolumn{1}{c|}{\textbf{Desc}} & \multicolumn{1}{c|}{\textbf{GPIO Header Pins}} \\ \hline
+    GND                                       & Ground                             & P1-20                                          \\ \hline
+    SDA                                       & I2C SDA                            & P1-03                                          \\ \hline
+    SCL                                       & I2C SCL                            & P1-05                                          \\ \hline
+    VCC                                       & 3.3V                               & P1-01                                          \\ \hline
+    \end{tabular}
+    \caption{\label{tb-ADS1115-conn-schema}Schema di collegamento modulo ADS1115.}
+\end{table}
+
+\begin{figure}[H]
+    \begin{center}
+      \includegraphics[width=0.6\textwidth]{images/sensors/ads1115-fritzing.png}
+    \end{center}
+    \caption{\label{ads1115-diagram}Diagramma Fritzing del modulo ADS1115.}
 \end{figure}
 
 \textbf{SENSTREE G1/2 CF-B7}\footnote{Link al venditore: \href{https://www.amazon.it/Interruttore-Misuratore-Contatore-Flussometro-Temperatura/dp/B07QNMZ7ZK}{https://www.amazon.it/AZDelivery-CFB7}}: il sensore del flusso d'acqua è costituito da un corpo in rame, un rotore dell'acqua, un magnete e un sensore ad effetto hall. Quando l'acqua scorre attraverso il rotore, questo inizia a girare insieme al magnete. La rotazione del campo magnetico attiva il sensore Hall, il quale emette onde quadre cioè impulsi. Ad ogni giro si avrà un certo volume di acqua che scorre, così come un determinato numero di onde quadre emesse. Pertanto, possiamo calcolare il flusso d'acqua contando il numero di onde quadre.
@@ -207,12 +310,30 @@ Infine, siccome $\frac{N}{t}$ equivale alla frequenza $f$:
     Temperatura dell'acqua  & $\leq$ 120°C                              \\ \hline
     Dimensioni              & 65 x 30 x 28 mm                     \\ \hline
     \end{tabular}
+    \caption{\label{tb-CF-B7-conn-schema}Caratteristiche principali del modulo CF-B7.}
 \end{table}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.35\textwidth]{images/sensors/cfb7.png}\hfill
     \caption{Modulo CF-B7.}
+\end{figure}
+
+Come mostrato in Tabella \ref*{tb-CF-B7-conn-schema} il flussometro è provvisto di un foro per l'inserimento di un termistore NTC (Negative Temperature Coefficient) 50K (\href{https://www.tme.eu/Document/34c96454d7432cb275d8954161fb18c2/NTCM-HP-50K-1.pdf}{datasheet}), la cui resistenza elettrica decresce all'aumentare della temperatura. Il sensore ha un ottimo rapporto qualità/prezzo e può essere trovato sul mercato in tante diverse configurazioni.
+Per valutare un termistore, la temperatura standard utilizzata dalla maggior parte dei produttori è di 25 °C, che equivale a quella ambiente. Nel caso specifico, a 25° il sensore presenterà una resistenza elettrica di 50K ohm.
+
+Per il calcolo della temperatura ci si affida alla formula semplificata di Steinhart-Hart, cioè alla \textit{B parameter equation}:
+%
+\[\frac{1}{T} = B \ln{\frac{R}{R_0}} + \frac{1}{T_0}\]
+%
+Dove $T$ è la temperatura in Kelvin, $R$ è la resistenza del termistore, $R0$ (50K ohm) è la resistenza del termistore a una temperatura nota $T0$ (25 °C) e $B$ è un costante specifica per il termistore (nel caso specifico 3950). 
+
+Il sensore non può essere collegato direttamente al Raspberry perché il segnale deve prima essere convertito da analogico a digitale tramite l'ADS1115. Si è scelto di inserire una resistenza di 10K ohm così da aumentare la risoluzione della misura.
+\begin{figure}[H]
+    \begin{center}
+      \includegraphics[width=0.6\textwidth]{images/sensors/ntc-fritzing.png}
+    \end{center}
+    \caption{\label{ntc50k-diagram}Diagramma Fritzing del modulo NTC 50K.}
 \end{figure}
 
 \subsubsection{Software}

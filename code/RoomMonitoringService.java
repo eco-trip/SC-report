@@ -1,20 +1,7 @@
 class RoomMonitoringService {
   // ...
-  
   public CompletableFuture<Void> start() {
     return engine.schedule(() -> {
-      var currentConsumption = 
-        computeConsumptionAverage(
-          consumptionUseCases::detectCurrent
-        );
-      var hotFlowRateConsumption =
-        computeConsumptionAverage(
-          consumptionUseCases::detectHotFlowRate
-        );
-      var coldFlowRateConsumption = 
-        computeConsumptionAver(
-          consumptionUseCases::detectColdFlowRate
-        );
       var futures = List.of(
         environmentUseCases
           .detectRoomBrightness(),
@@ -24,9 +11,12 @@ class RoomMonitoringService {
           .detectHotWaterTemperature(),
         environmentUseCases
           .detectColdWaterTemperature(),
-        currentConsumption, 
-        coldFlowRateConsumption, 
-        hotFlowRateConsumption
+        computeConsumptionAverage(
+          consumptionUseCases::detectCurrent), 
+        computeConsumptionAverage(
+          consumptionUseCases::detectColdFlowRate), 
+        computeConsumptionAverage(
+          consumptionUseCases::detectHotFlowRate)
       );
       Futures.thenAll(futures, this::sendData, DEFAULT_DETECT_INTERVAL);
     }, detectionInterval);

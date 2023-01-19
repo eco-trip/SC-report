@@ -3,9 +3,6 @@
 %----------------------------------------------------------------------------------------
 
 \section{Implementazione}\label{sec:implementazione}
-%Esporre i principali problemi affrontati durante l'effettiva realizzazione delle componenti hardware/software e illustrare le soluzioni implementative adottate. Se l'elaborato ha previsto l'utilizzo di tecnologie già disponibili sul mercato, discuterne brevemente le caratteristiche e motivarne l'adozione rispetto ad altre soluzioni assimilabili.\\
-%
-% 10000 caratteri
 Similmente a quanto fatto nella sezione precedente, anche in questo caso le soluzioni implementative avanzate sono state suddivise per sottodomonio. Di ognuna si elencano le motivazioni e le problematiche emerse durante lo sviluppo. 
 
 \subsection{Control Unit}
@@ -24,22 +21,29 @@ Siccome il software della centralina si compone di due servizi, cioè \textit{Au
 %
 Come mostrato nel Listato \ref{lst:main}, per ogni servizio viene istanziato un \texttt{Engine} fatta eccezione per l'\texttt{awsAdapter} che, appoggiandosi sulla libreria \texttt{software.amazon.awssdk}, già esegue all'interno di un flusso di controllo indipendente.L'\texttt{awsAdapter} si occupa di inoltrare i dati prodotti dal \texttt{RoomMonitoringService} verso il \textit{backend} tramite protocollo MQTT e realizza lo \textit{shadowing} tra la centralina e la sua copia digitale. 
 Inoltre l'\texttt{awsAdapter} registra l'\texttt{AuthorizationService} come "osservatore" così da notificargli eventuali modifiche del \textit{token} di accesso. Infine, l'avvio dei servizi avviene solamente conclusa la procedura di \textit{bootstrap}, cioè di connessione con il \textit{backend}.
-\newline\newline
+%
+\subsubsection{RoomMonitoringService}
 Internamente il \texttt{RoomMonitoringService} (Listato \ref*{lst:rms}) esegue ogni $N$ secondi il calcolo dei consumi (corrente e acqua divisa in calda e fredda) e rileva i fattori ambientali della stanza (temperatura, umidità, luminosità). I dati raccolti vengono prima serializzati e poi inviati verso l'esterno. I consumi vengono calcolati più volte durante gli $N$ secondi, infatti è prevista una logica di aggregazione. Tutte le funzionalità implementante sono asincrone poiché si avvalgono delle \texttt{CompletableFuture} di Java.
 \lstinputlisting[caption={Logica \textit{core} del \texttt{RoomMonitoringService}.}, label={lst:rms}, language=Java]{code/RoomMonitoringService.java}
 %
+\subsubsection{AuthorizationService}
 L'\texttt{AuthorizationService} esegue solo un \textit{task} bloccante definito in due step: \texttt{bootstrap()} e \texttt{startNfcTagEmulation()}. Il primo provvede a sincronizzare lo stato della centralina con quello memorizzato sul \textit{backend}, mentre il secondo abilita la connessione tra lo smartphone e il lettore NFC. Come mostrato nel Listato \ref*{lst:as}, la funzione \texttt{startNfcTagEmulation} viene ripetuta anche nel caso di due errori specifici. Quest'ultimi non sono considerati fatali poiché possono essere provocati, per esempio da un allontamento precoce dello smartphone dal lettore.
 \lstinputlisting[caption={Logica \textit{core} dell'\texttt{AuthorizationService}.}, label={lst:as}, language=Java]{code/AuthorizationService.java}
 %
 Il codice del programma che permette di convertire i dati ottenuti dal sensore BH1750 in \texttt{lux} (Listato \ref*{lst:bh}), si avvale della classe \texttt{I2C} di Pi4j che, grazie al metodo \texttt{read}, restituisce i due byte (LSB e MSB) necessari per produrre il risultato.
 \lstinputlisting[caption={Progammazione del modulo BH1750.}, label={lst:bh}, language=Java]{code/BH1750.java}
 %
-% todo parlare del modulo dth22 e del multidigital purpose
-Nel caso del modulo DHT22, la programmazione del sensore ha richiesto uno sforzo maggiore poiché si è riscontrata una problematica legata all'interfaccia \texttt{Digital} fornita dalla libreria Pi4J. Questa permette di comunicare con un pin GPIO del Raspberry mediante due classi: \texttt{DigitalOutput} e \texttt{DigitalInput}. Quindi non è possibile creare un collegamento sul quale scrivere e leggere contemporaneamente. Questo si è rivelato una limitazione perché il protocollo del DHT22 richiede nello stesso ciclo di polling, una comunicazione sia in input che in output, ma il tempo richiesto per la riconfigurazione del pin provoca un ritardo che quasi sempre supera la finestra di 40-80 microsecondi richiesta dal protocollo. Ciò comporta una perdita di informazioni che può provocare errori nella trasmissione. Si è quindi scelto di realizzare un \textit{fork} di Pi4J al fine di aggiungere le funzionalità richieste all'interno di una nuova classe chiamata \texttt{DigitalMultiPurpose}. Questa implementazione permette di interagire con un pin in entrambe le modalità riducendo i tempi allo scopo di rientrare all'interno della finestra temporale prima citata. Della libreria Pi4J è stato modificato anche il file di \textit{build} di \textit{Maven} così da permettere la pubblicazione degli artefatti (\textit{package}) all'interno di Github Packages automatizzandone il download tramite Gradle.\newline\newline
+\subsubsection{DHT22}
+Nel caso del modulo DHT22, la programmazione del sensore ha richiesto uno sforzo maggiore poiché si è riscontrata una problematica legata all'interfaccia \texttt{Digital} fornita dalla libreria Pi4J. Questa permette di comunicare con un pin GPIO del Raspberry mediante due classi: \texttt{DigitalOutput} e \texttt{DigitalInput}. Quindi non è possibile creare un collegamento sul quale scrivere e leggere contemporaneamente. Questo si è rivelato una limitazione perché il protocollo del DHT22 richiede nello stesso ciclo di polling, una comunicazione sia in input che in output, ma il tempo richiesto per la riconfigurazione del pin provoca un ritardo che quasi sempre supera la finestra di 40-80 microsecondi richiesta dal protocollo. Ciò comporta una perdita di informazioni che può provocare errori nella trasmissione. Si è quindi scelto di realizzare un \textit{fork} di Pi4J al fine di aggiungere le funzionalità richieste all'interno di una nuova classe chiamata \texttt{DigitalMultiPurpose}. Questa implementazione permette di interagire con un pin in entrambe le modalità riducendo i tempi allo scopo di rientrare all'interno della finestra temporale prima citata. Della libreria Pi4J è stato modificato anche il file di \textit{build} di \textit{Maven} così da permettere la pubblicazione degli artefatti (\textit{package}) all'interno di Github Packages automatizzandone il download tramite Gradle.
 %
+\subsubsection{Flussometro}
 Per quanto riguarda il flussometro, è stato sufficiente utilizzare un istanza di \texttt{DigitalInput} messe a disposizione da Pi4J. A questa è stata associata una \textit{callback} che si occupa di incrementare un contatore ogni qualvolta il pin si trovi nello stato di \texttt{HIGH}. Dopo un secondo (circa) il contatore degli impulsi viene suddiviso per la frequenza specifica del sensore così da ottenere i litri di acqua fluiti (L/s). Al fine di ottenere un risultato più accurato, si tiene traccia del tempo effettivamente trascorso da una rilevazione e l'altra.
 \lstinputlisting[caption={Progammazione del flussometro.}, label={lst:wfs}, language=Java]{code/WaterFlowSensor.java}
 %
-Come già anticipato nella sezione progettuale, per il calcolo della temperatura tramite termistore ci si affida ad una versione semplificata dell'equazione di Steinhart-Hart. L'utilizzo della costante \texttt{KELVIN} (273.15) permette di convertire il risultato ottenuto in Celsius. Poiché il termistore utilizzato è un dispositivo analogico, il parametro \texttt{inputVoltage} viene fornito dall'ADC,a sua volta astratto mediante una specifica classe Java.
+\subsubsection{NTC - Termistore}
+Come già anticipato nella sezione progettuale, per il calcolo della temperatura tramite termistore ci si affida ad una versione semplificata dell'equazione di Steinhart-Hart. L'utilizzo della costante \texttt{KELVIN} (273.15) permette di convertire il risultato ottenuto in Celsius. Poiché il termistore utilizzato è un dispositivo analogico, il parametro \texttt{inputVoltage} viene fornito dall'ADC a sua volta astratto mediante una specifica classe Java.
 \lstinputlisting[caption={Progammazione del termistore NTC 50K.}, label={lst:ntc}, language=Java]{code/NTCSensor.java}
+% 
+\subsubsection{PN532}
+
 \newpage

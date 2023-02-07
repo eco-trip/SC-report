@@ -1,3 +1,12 @@
+# [1.4.0](https://github.com/eco-trip/SC-report/compare/v1.3.0...v1.4.0) (2023-02-07)
+
+
+### Features
+
+* complete state of art [skip ci] ([2a5885d](https://github.com/eco-trip/SC-report/commit/2a5885d71e7a4b21a119d1ac74d7b5c5a45e7e85))
+* complete the state of art [skip ci] ([5030632](https://github.com/eco-trip/SC-report/commit/50306322ca118ee81e24d9be8f0141e1851929f3))
+* deployment ([3411b84](https://github.com/eco-trip/SC-report/commit/3411b84712db368a1c379cd2b1a273ebe119f820))
+
 # [1.3.0](https://github.com/eco-trip/SC-report/compare/v1.2.0...v1.3.0) (2023-01-17)
 
 

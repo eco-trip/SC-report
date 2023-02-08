@@ -46,4 +46,19 @@ Come già anticipato nella sezione progettuale, per il calcolo della temperatura
 % 
 \subsubsection{PN532}
 
+Il modulo NFC nel nostro caso non si occupa di leggere TAG, ma di stabilire una comunicazione con uno smartphone al fine di inviargli il token.
+Più precisamente si è riusciti ad eseguire questa operazione senza un app nativa sul dispositvo cellulare: 
+è infatti sufficiente avvicinare lo smartphone al controller NFC perchè questo si attivi ed invii URL con il token lanciando la web app sul dispositivo.
+
+Per fare questo il controller NFC viene inizalizzato via software nella modalità "card emulation", il PN532 è quindi capace di rispondere a comandi "Reader/Writer" 
+secondo lo schema standard ISO/IEC 14443A/MIFARE.
+
+Nell'implementare questa modalità di comunicazione si sono seguite le specifiche di "NFC Forum Type 4 Tag".
+Un Tag Type 4 contiene un messaggio NFC Data Exchange Format (NDEF) il quale include il nostro URL con il token.
+
+Il controller PN532 ci ha dato dapprima problemi di stabilità di connessione con l'interfaccia I2C, che ci ha costretti a connetterlo al canale SPI.
+In secondo luogo abbiamo dovuto riportare tutto il protocollo di comunicazione in linguaggio Java e questo ha richiesto una gran quantità di debugging.
+
+Attualmente il controller funziona solo comunicando con dispositivo modello iPhone, occorre più tempo per supportare altri device e rendere tutto più stabile. 
+
 \newpage

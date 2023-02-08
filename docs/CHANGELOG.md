@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/eco-trip/SC-report/compare/v1.5.0...v1.6.0) (2023-02-08)
+
+
+### Features
+
+* working plan ([a17efde](https://github.com/eco-trip/SC-report/commit/a17efdec78adde54c44e04638092af6981254aee))
+
 # [1.5.0](https://github.com/eco-trip/SC-report/compare/v1.4.0...v1.5.0) (2023-02-08)
 
 

@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/eco-trip/SC-report/compare/v1.4.0...v1.5.0) (2023-02-08)
+
+
+### Features
+
+* nfc + pl ([5d3e27c](https://github.com/eco-trip/SC-report/commit/5d3e27c1f205d2e4989454caa1cfc01d54e8c7ce))
+
 # [1.4.0](https://github.com/eco-trip/SC-report/compare/v1.3.0...v1.4.0) (2023-02-07)
 
 

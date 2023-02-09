@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/eco-trip/SC-report/compare/v1.6.0...v1.6.1) (2023-02-09)
+
+
+### Bug Fixes
+
+* deployment ([76305ad](https://github.com/eco-trip/SC-report/commit/76305ad8aebe15e88a90d13157da0a0b003e484f))
+
 # [1.6.0](https://github.com/eco-trip/SC-report/compare/v1.5.0...v1.6.0) (2023-02-08)
 
 

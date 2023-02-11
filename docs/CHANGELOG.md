@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/eco-trip/SC-report/compare/v1.6.1...v1.7.0) (2023-02-11)
+
+
+### Features
+
+* add conclusions ([6d24ffb](https://github.com/eco-trip/SC-report/commit/6d24ffbc880fc8fc438cf14ab3ed42ff94aceb2a))
+
 ## [1.6.1](https://github.com/eco-trip/SC-report/compare/v1.6.0...v1.6.1) (2023-02-09)
 
 

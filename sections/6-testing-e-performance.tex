@@ -5,26 +5,33 @@
 
 \section{Testing e performance}
 
-Esporre lo stato di funzionamento effettivo del sistema progettato ad elaborato concluso. 
+Lo sviluppo del progetto è progredito con metodologia incrementale e con test automatizzati per tutte le sue parti critiche. 
+Ogni componente è quindi adeguatamente testato singolarmente nelle sue logiche di funzionamento.
 
-Per ciascuna delle funzionalità salienti devono essere tabellate e discusse le performance riscontrate mediante opportuni test eseguiti in fase di validazione del progetto.\\
+A prototipo concluso si sono eseguiti manualmente test integrativi andando a verificare l'effettivo funzionamento del sistema nel suo insieme.
+A tal fine, sono stati eseguiti i seguenti passi:
+\begin{itemize}
+    \item deployment dei diversi servizi web
+    \item aggiunto da pannello di controllo un hotel di prova con il rispettivo account per l'albergatore
+    \item aggiunta da pannello di controllo una camera all'hotel
+    \item avviata la centralina
+    \item installata e configurata da pannello IoT Core specificando hotel e camera
+    \item verificata la ricezione dei dati 
+    \item verificata la correttezza dei dati in base alle sollecitazioni dei vari sensori
+    \item eseguito da pannello di controllo un check-in per la camera generando il token
+    \item verificato il calcolo del punteggio sostenibilità per il pernottamento di prova
+    \item avviata la web app avvicinando lo smartphone al controller NFC
+\end{itemize}
 
-I tempi di esecuzione/comunicazione devono essere accompagnati dalle caratteristiche dell'hardware sul quale è eseguito il software.\\
+Non si sono riscontrati problemi tranne per l'invio del token al dispositivo cellulare mediante NFC: 
+permane un problema che riguarda l'inizializzazione del controller NFC che a volte non avviene con successo. 
+Abbiamo trovato un work-around ma il fix del problema richiede una sessione di debugging approfondita che riguarda il protocollo "NFC Forum Type 4 Tag".
 
-Qualora l'elaborato includa algoritmi innovativi, indicarne la complessità computazionale (avendo cura di esporre lo pseudo codice nella sezione \ref{sec:implementazione}).\\
+Riguardo le performance del sistema, è possibile discutere di due componenti: centralina e data elaboration.
+Per la centralina si segnala che : java fa schifo ma la CPU non è usata. I dati inviati sono ridicoli.
+Per il data elaboration la lambda sta attiva X secondi.
 
 
-Vincoli circa la lunghezza della sezione (escluse didascalie, tabelle, testo nelle immagini, schemi):
-
-\vspace{1cm}
-\begin{tabular}{l|rr}
- & Numero minimo di battute & Numero massimo di battute \\
- \hline
- 1 componente & 2000 & 3000 \\
- 2 componenti & 2500 & 4500 \\
- 3 componenti & 3000 & 6000 \\
- \hline
-\end{tabular}
-
+Per quanto concerne il resto dei servizi web non ci sono particolari osservazioni da fare.
 
 \newpage

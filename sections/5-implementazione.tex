@@ -3,7 +3,7 @@
 %----------------------------------------------------------------------------------------
 
 \section{Implementazione}\label{sec:implementazione}
-Similmente a quanto fatto nella sezione precedente, anche in questo caso le soluzioni implementative avanzate sono state suddivise per sottodomonio. Di ognuna si elencano le motivazioni e le problematiche emerse durante lo sviluppo. 
+Per quanto concerne le soluzioni implementative riportiamo in modo approfondito quelle relative alla \textit{Control Unit} e per il resto del servizi cloud solo i dettagli inerenti l'esame.
 
 \subsection{Control Unit}
 Per quanto riguarda la centralina, prima di avviare il vero e proprio sviluppo del progetto si è scelto di verificare il corretto funzionamento dei sensori, collegando ciascuno di essi alla scheda e validando l'output restituito tramite opportuni software rilasciati dal produttore. Nello specifico, siccome diversi sensori comunicano mediante protocollo I2C, è stato necessario collegare questi a una \textit{breadboard} al fine di ampliare il numero di ingressi disponibili ai GPIO SDA e SCL. Una volta completata la fase preliminare di sperimentazione si è passati alla realizzazione di una \textit{build multi-progetto} confinando le funzionalità all'interno di moduli indipendenti, al fine di semplificare l'attività di sviluppo parallela tra i membri del team. Come già anticipato nella sezione di progettazione, il progetto si compone di diversi strati, quelli più interni realizzano la logica di \textit{business} che deve essere totalmente indipendente da \textit{framework}. I livelli più esterni invece dipendo dalla libreria \href{https://pi4j.com/}{Pi4J} (versione 2), la motivazione principale è stata la ricerca di un livello di astrazione che potesse nascondere gli aspetti di basso livello, permettendo così al team di concentrasi quasi esclusivamente sulla logica di \textit{business}. Ovviamente vi sono altri vantaggi derivanti dall'adozione di Pi4J e possono essere riassunti in:
@@ -44,6 +44,13 @@ Per quanto riguarda il flussometro, è stato sufficiente utilizzare un istanza d
 Come già anticipato nella sezione progettuale, per il calcolo della temperatura tramite termistore ci si affida ad una versione semplificata dell'equazione di Steinhart-Hart. L'utilizzo della costante \texttt{KELVIN} (273.15) permette di convertire il risultato ottenuto in Celsius. Poiché il termistore utilizzato è un dispositivo analogico, il parametro \texttt{inputVoltage} viene fornito dall'ADC a sua volta astratto mediante una specifica classe Java.
 \lstinputlisting[caption={Progammazione del termistore NTC 50K.}, label={lst:ntc}, language=Java]{code/NTCSensor.java}
 % 
+\subsubsection{ACS712}
+Con il sensore di corrente ACS712 è possibile misurare corrente continua in modo immediato, è sufficiente applicare una semplice formula alla tensione di output del sensore.
+Per il nostro caso in cui la corrente da rilevare è alternata si è dovuti procedere con dei campionamenti dell'onda sinusoidale in uscita dal sensore al fine di rilevarne il picco.
+Il metodo adottato è tuttavia approssimativo e andrebbe migliorato empiricamente.
+
+Abbiamo inoltre provveduto a realizzare una procedura per la calibrazione del sensore all'avvio del sistema, in quanto questo si è rivelato poco preciso quando la corrente circolante è bassa o prosssima allo zero.
+%
 \subsubsection{PN532}
 
 Il modulo NFC nel nostro caso non si occupa di leggere TAG, ma di stabilire una comunicazione con uno smartphone al fine di inviargli il token.
@@ -61,4 +68,11 @@ In secondo luogo abbiamo dovuto riportare tutto il protocollo di comunicazione i
 
 Attualmente il controller funziona solo comunicando con dispositivo modello iPhone, occorre più tempo per supportare altri device e rendere tutto più stabile. 
 
+\subsection{Servizi cloud}
+Per quanto riguarda l'implementazione dei servizi cloud è importante specificare che, come indicato sul capitolo 7 deployment, si è deciso di utilizzare un unico database DynamoDB.
+La modellazione dei dati indicata in fase progettuale si è tradotta in tre sole tabelle DynamoDB: le entità di \textit{Administration} sono confluite in un'unica tabella.
+Questo risultato è dovuto al fatto che abbiamo seguito le best-practice per la modellazione dei dati per questo database che 
+XXXXXXXX.
+
+Tralasceremo i tanti dettagli dei singoli servizi che esulano dallo scopo di questo esame e rimandiamo. 
 \newpage

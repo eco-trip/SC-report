@@ -21,16 +21,23 @@ Le componenti del sistema Ecotrip (Figura \ref{fig:contextmap}) possono essere s
         \item il ciclo di vita può essere unito in modo da avere un unico deployment su unica infrastruttura riducendo i costi di fornitura del servizio;
         \item Hotel Management avrà un numero di richieste sempre molto basso e lo \textit{scaling} del servizio può essere dimensionato pensando solamente a Stay Management.
     \end{itemize}
-    L'alternativa a questa strategia è di separare i due servizi e magari implementarli con paradigma totalmente \textit{serverless} (vedi sezione deployment), che renda i costi del servizio proporzionali all'utilizzo.
-    \item \textbf{AWS Cognito}: rappresenta il sottodominio relativo all'autenticazione, cioè tutte le funzionalità che consento di gestire gli \textit{account} degli amministratori di sistema e degli \textit{hotelier}, che può essere demandato in \textit{out-sourcing}. Una possibile soluzione può essere Amazon AWS Cognito.
+    L'alternativa a questa strategia è di separare i due servizi e magari implementarli con paradigma totalmente \textit{serverless} (vedi capitolo 7 - deployment), che renda i costi del servizio proporzionali all'utilizzo.
+    \item \textbf{AWS Cognito}: rappresenta il sottodominio relativo all'autenticazione, cioè tutte le funzionalità che consentono di gestire gli \textit{account} degli amministratori di sistema e degli \textit{hotelier}, che può essere demandato in \textit{out-sourcing}. La soluzione da noi scelta è appunto Amazon AWS Cognito.
     \item \textbf{Control Panel}: realizza la logica di business \textit{frontend} dei sottodomini Administration e Authentication, nella pratica si andrà a realizzare una \textit{web app} sfruttando il framework React.js. Questa delegherà l'autenticazione e la gestione degli account creati ad AWS Cognito. Inoltre, il pannello di controllo risultante dovrà permettere di visualizzare sia lo stato dalle centraline che i dati prodotti da queste. Ciò comporta la creazione di un collegamento tra il Control Panel ed i servizi AWS IoT Core e Data Elaboration Service.
     \item \textbf{AWS IoT Core}: include i sottodomini Control Unit Management, Control Unit Maintenance e lo \textit{storage cloud} dei dati generati da Room Monitoring. Come per l'autenticazione, la sua implementazione può essere delegata a un fornitore esterno, nel caso specifico si è scelto l'omonimo servizio di amazon AWS IoT Core. Quest'ultimo dispone di un pannello di controllo con cui poter agevolmente eseguire tutti i \textit{task} richiesti, per esempio permette di abbinare le centraline alle stanze attraverso \textit{tagging}. Infine, tramite un'apposita Rest API, per ogni centralina si è in grado di ottenere i dati caricati, verificarne lo stato ed inviare dei comandi da remoto: funzionalità che può essere sfruttata per inviare il token di un ospite.
     \item \textbf{Guest Authorization}: realizza funzionalità che possono essere circoscritte in due sistemi distinti. Il primo è Guest Authorization Service, il quale si occupa della generazione del \textit{token}, a seguito della creazione di un nuovo soggiorno (eventi di \textit{check in} e \textit{check out}) da parte del servizio di Stay Management, e del suo invio verso la centralina tramite AWS IoT Core. Il secondo sistema verrà incluso come modulo all'interno del software della centralina.
+    \item \textbf{Data Elaboration}: servizio che si attiva periodicamente per elaborare i dati raccolti per ogni pernottamento e storicizzare i calcoli dei consumi e punteggio sostenibilità. Fornisce anche un API per fornire i dati a Guest App e Control Panel.
     \item \textbf{Control Unit}: rappresenta il software installato sulla centralina, il quale si compone di due moduli, il primo (Room Monitoring) si occupa del monitoraggio dei consumi, mentre il secondo (Guest Authorization) è dedicato alla gestione del \textit{transponder NFC}. La Control Unit oltre a ricevere gli aggiornamenti di stato da AWS IoT Core, vi inoltra i dati raccolti dai sensori. Come fatto per Administration, anche in questo caso si è evitato di creare due software indipendenti al fine di avere lo stesso ciclo di vita e un unico \textit{deployment} che possa semplificare le attività di configurazione e manutenzione della centralina.
     \item \textbf{Guest App}: realizza un applicativo lato \textit{frontend} che comunica con la Control Unit per ottenere il \textit{token} da presentare al servizio di Data Elaboration per accedere ai dati del pernottamento.
 \end{itemize}
 
-Di seguito viene proposto un approfondimento su ogni componente appena elencata.
+Di seguito viene proposto un approfondimento per quanto riguarda le componenti più complesse del sistema.
+
+Si noti che ciascuno dei servizi di cui sopra gestisce autonomamente i propri dati, in modo separato l'uno dall'altro, per questo non abbiamo realizzato un modello dei dati composito.
+
+Si rimanda inoltre al capitolo 7 relativo al deployment che è parte integrante della presente progettazione,
+in quanto i servizi e gli applicativi web sono stati pensati considerando fin da subito a come questi possano effettivamente 
+interagire tra loro ed essere resi pubblicamente disponibili.
 
 \subsection{Control Unit}
 Nel caso specifico della centralina la fase di progettazione coinvolge sia la componente \textit{hardware} che quella \textit{software}. L'elemento \textit{core} del prototipo è una scheda \textit{raspberry pi 4B} alla quale sono connessi i sensori precedentemente citati nella sezione dei requisiti. Data la finalità prototipale e le tempistiche ristrette si predilige l'acquisto di un set di sensori che siano disponibili nell'immediato, preferibilmente digitali e con un supporto software adeguato. Ovviamente, di questi si verificherà anche l'accuratezza nonostante non sia ritenuto un aspetto fondamentale durante questa fase di progetto. 
@@ -164,7 +171,7 @@ Il sensore utilizza l'effetto Hall per rilevare la corrente che lo attraversa. L
     \hline
     \textbf{Caratteristica} & \textbf{Descrizione}                                \\ \hline
     Alimentazione           & 5V                                                  \\ \hline
-    Tensione in uscita      & metà di quella di allimentazione (2.5V se Vcc = 5V) \\ \hline
+    Tensione in uscita      & metà di quella di alimentazione (2.5V se Vcc = 5V) \\ \hline
     Output                  & segnale in uscita digitale (ADC build-in)           \\ \hline
     Dimensioni              & 89.9 x 59.9 x 20.1 mm                               \\ \hline
     \end{tabular}
@@ -388,10 +395,85 @@ Infine la logica di monitoraggio della stanza (\textit{Room Monitoring}) è racc
 \end{figure}
 
 \subsection{Administration}
-\begin{itemize}
-    \item Descrivere come funziona l'Administration e il pannello di controllo cone le eventuali rotte REST
-    \item Diagramma ER (Room, Hotel, Stay ecc.)
-\end{itemize}
 
+Per Administration si adotta un architettura semplice di tipo \textit{transaction script} sufficiente a gestire la complessità della sua logica di business.
+In particolare questo si traduce in una Rest API dove ogni rotta avvia una singola procedura che si occupa della transazione.
+Ciascuna transazione per essere eseguita richiede un token di autenticazione, generato dal servizio AWS Cognito. 
+Inoltre vengono adottati meccanismi RBAC per autorizzare l'esecuzione delle transazioni in base alla tipologia di utente, amministratore o albergatore.
+
+Riportiamo in tabella \ref*{administration-routes} le rotte previste ed in figura \ref*{er-admin} un semplice diagramma ER che modella i dati.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Rotta}     & \textbf{Richiesta} & \textbf{Descrizione} \\ \hline
+    /hotels/           & get & elenco degli hotels    \\ \hline
+    /hotels/                     & post & aggiunta di un hotel   \\ \hline  
+    /hotels/:id                     & get & dettagli di un hotel  \\ \hline 
+    /hotels/:id                     & patch & modifica di un hotel \\ \hline
+    /hotels/:id                     & delete & cancellazione di un hotel \\ \hline
+    /hotels/:id/rooms           & get & elenco delle stanze di hotel    \\ \hline
+    /hotels/:id/rooms           & put & aggiunta di una stanza ad un hotel    \\ \hline
+    /hotels/:id/user           & get & per ottenere l'account utente dell'albergatore   \\ \hline
+    /hotels/:id/user           & put & aggiunta l'account utente dell'albergatore   \\ \hline
+    /rooms/:id                     & get & dettagli di una stanza  \\ \hline 
+    /rooms/:id                     & patch & modifica di una stanza \\ \hline
+    /rooms/:id                     & delete & cancellazione di una stanza \\ \hline
+    /rooms/:id/stays               & get & elenco pernottamenti di una stanza \\ \hline
+    /rooms/:id/stays               & put & check-in per una stanza \\ \hline
+    /rooms/:id/currentStay         & get & dati pernottamento corrente di una stanza \\ \hline
+    /rooms/:id/currentStay         & patch & check-out \\ \hline
+    /guest/           & get & per ottenere i dati da visualizzare nella app \\
+                      &     & dato un token di pernottamento valido \\ \hline
+    
+    \end{tabular}
+    \caption{\label{administration-routes}Rotte della Rest API di Administration.}
+
+\end{table}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1.0\textwidth]{images/er-admin.png}
+    \end{center}
+    \caption{\label{er-admin}Modello ER dei dati di Administration}
+\end{figure}
+
+\subsection{AWS IoT Core}
+
+Questo componente è delegato all'omonimo servizio Amazon, 
+qui riportiamo solamente in figura \ref*{er-iot} la definizione della tabella per storicizzare i dati inviati delle centraline.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=0.3\textwidth]{images/er-iot.png}
+    \end{center}
+    \caption{\label{er-iot} Tabella per storicizzare i dati inviati dalle centraline}
+\end{figure}
+
+
+\subsection{Data Elaboration}
+
+Il componente Data Elaboration comprende due servizi uno per calcolare e storicizzare i dati ed uno per fornirli con Rest API.
+Per la prima funzionalità, non occorre una particolare architettura in quanto i calcoli possono avvenire in un'unica procedura avviata periodicamente.
+Per la seconda parte è sufficiente un'unica rotta che richiede un token di accesso Cognito o fornito da Guest Authorization.
+
+Maggiori dettagli per comprendere la progettazione di questo componente sono specificati nel capitolo 7 - deployment.
+
+Riportiamo in figura \ref*{er-elaboration} la definizione della tabella per storicizzare i dati elaborati.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=0.3\textwidth]{images/er-elaboration.png}
+    \end{center}
+    \caption{\label{er-elaboration} Tabella per i dati elaborati}
+\end{figure}
 
 \newpage
+
+\subsection{Guest Authorization}
+
+Il componente Guest Authorization non richiede una particolare architettura in quanto è realizzabile con un unica procedura avviata su richiesta.
+Per permettere ad Administration di avviare la funzione di questo componente ad ogni check-in/out è possibile adottare una Rest API con un'unica rotta 
+oppure un meccanismo a messaggi: Administration invia un messaggio a Guest Authorization che reagisce lanciando la procedura.
+Optiamo per la seconda possibilità come meglio specificato nel capitolo 7 - deployment.

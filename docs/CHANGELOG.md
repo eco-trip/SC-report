@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/eco-trip/SC-report/compare/v1.8.0...v1.9.0) (2023-02-11)
+
+
+### Features
+
+* implementazione ([4a01d7b](https://github.com/eco-trip/SC-report/commit/4a01d7b67b9c7cb570513c7a3fd074b281e3640b))
+
 # [1.8.0](https://github.com/eco-trip/SC-report/compare/v1.7.0...v1.8.0) (2023-02-11)
 
 

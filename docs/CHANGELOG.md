@@ -1,3 +1,16 @@
+# [1.8.0](https://github.com/eco-trip/SC-report/compare/v1.7.0...v1.8.0) (2023-02-11)
+
+
+### Bug Fixes
+
+* deployment ([61de6f4](https://github.com/eco-trip/SC-report/commit/61de6f4a6b8ee03777b801215e1f5cc97c2731ca))
+* interruttore stanza ([69026fc](https://github.com/eco-trip/SC-report/commit/69026fc0636d67fd63d22154c10084b1cfe63363))
+
+
+### Features
+
+* testing ([1ba007c](https://github.com/eco-trip/SC-report/commit/1ba007c651ef41a5d60d8469ea19372cf5d98ec2))
+
 # [1.7.0](https://github.com/eco-trip/SC-report/compare/v1.6.1...v1.7.0) (2023-02-11)
 
 

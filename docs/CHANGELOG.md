@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/eco-trip/SC-report/compare/v1.10.0...v1.10.1) (2023-02-12)
+
+
+### Bug Fixes
+
+* final review ([f12a88d](https://github.com/eco-trip/SC-report/commit/f12a88d078b94f0ea0f52b95e3e35b0e5839061a))
+
 # [1.10.0](https://github.com/eco-trip/SC-report/compare/v1.9.0...v1.10.0) (2023-02-12)
 
 

@@ -24,8 +24,10 @@ Serverless significa impiegare servizi Cloud che scalano in automatico all'occor
 
 In Figura 22 mostriamo l'architettura implementata utilizzando diversi servizi messi a disposizione da Amazon Web Services (AWS).
 
-Poiché questo è un progetto IoT, abbiamo scelto di utilizzare \textbf{DynamoDB}, il database serverless fornito da AWS, per memorizzare i dati, il quale è in grado di scalare automaticamente sia per quello che concerne la quantità di dati che per il numero di richieste al secondo.
-Abbiamo suddiviso il database in tre tabelle: "IoTData" per i dati IoT inviati dalla Control Unit, "Administration" per la gestione della REST API, e "DataElaboration" per l'elaborazione dei dati. Questa suddivisione ci permette di gestire in modo efficiente e organizzato i dati del progetto, strutturando al meglio ogni tabella secondo le logiche di data modelling per un database NoSQL di tipo Key-Value.
+Poiché questo è un progetto IoT, abbiamo scelto di utilizzare \textbf{DynamoDB}, il database serverless fornito da AWS, il quale è in grado di scalare automaticamente sia per quello che concerne la quantità di dati che per il numero di richieste al secondo.
+Abbiamo suddiviso il database in tre tabelle: "IoTData" per i dati IoT inviati dalla Control Unit, "Administration" per la gestione della REST API, e "DataElaboration" per l'elaborazione dei dati. 
+Questa suddivisione ci permette di gestire in modo efficiente e organizzato i dati del progetto, strutturando al meglio ogni tabella secondo le logiche di data modelling per un database NoSQL di tipo Key-Value.
+Da notare che le entità di \textit{Administration} illustrate in fase progettuale sono confluite nella pratica in un'unica tabella DynamoDB: per arrivare a questo risultato abbiamo seguito le best-practices per il design di database NoSQL che richiede un approccio diverso dalla progettazione di RDBMS.
 
 \begin{figure}[H]
     \includegraphics[width=\textwidth]{AWS.jpg}
@@ -67,9 +69,5 @@ SAM (\textbf{Serverless Application Model}) è un framework opensource che attra
 In fase di staging e production, il processo di deployment viene completamente automatizzato tramite le \textbf{GitHub Action} sulle apposite branch. Queste azioni avviano i relativi script che attraverso i template SAM creano e mantengono aggiornata l'infrastruttura su AWS, garantendo così un processo di distribuzione affidabile, efficiente e privo di errori. Il sistema di deploy automatico garantisce che il progetto sia sempre allineato alla versione più recente.
 
 L'ambiente di staging è una replica fedele dell'ambiente di produzione, che viene utilizzato per effettuare test e verifiche prima di effettuare eventuali modifiche al sistema in produzione. Questo ambiente separato permette di effettuare prove senza influire sul funzionamento e sui dati del sistema in produzione, garantendo così la stabilità e la sicurezza dell'intero ecosistema.
-
-\subsection{Analisi dei costi}
-
-Abbiamo raccolto i costi di fornitura del servizio cloud per singola stanza.
 
 \newpage

@@ -3,7 +3,8 @@
 %----------------------------------------------------------------------------------------
 
 \section{Implementazione}\label{sec:implementazione}
-Per quanto concerne le soluzioni implementative riportiamo in modo approfondito quelle relative alla \textit{Control Unit} e per il resto del servizi cloud solo i dettagli inerenti l'esame.
+Per quanto concerne le soluzioni implementative riportiamo qui in modo approfondito quelle relative alla \textit{Control Unit}.
+Per i dettagli implementativi dei servizi cloud, questi dipendono dalle tecnologie e dall'infrastruttura AWS adottata, pertanto rimandiamo al capitolo successivo (6 - deployment) che espone tutti gli aspetti inerenti sia progettuali che di sviluppo pratico.
 
 \subsection{Control Unit}
 Per quanto riguarda la centralina, prima di avviare il vero e proprio sviluppo del progetto si è scelto di verificare il corretto funzionamento dei sensori, collegando ciascuno di essi alla scheda e validando l'output restituito tramite opportuni software rilasciati dal produttore. Nello specifico, siccome diversi sensori comunicano mediante protocollo I2C, è stato necessario collegare questi a una \textit{breadboard} al fine di ampliare il numero di ingressi disponibili ai GPIO SDA e SCL. Una volta completata la fase preliminare di sperimentazione si è passati alla realizzazione di una \textit{build multi-progetto} confinando le funzionalità all'interno di moduli indipendenti, al fine di semplificare l'attività di sviluppo parallela tra i membri del team. Come già anticipato nella sezione di progettazione, il progetto si compone di diversi strati, quelli più interni realizzano la logica di \textit{business} che deve essere totalmente indipendente da \textit{framework}. I livelli più esterni invece dipendo dalla libreria \href{https://pi4j.com/}{Pi4J} (versione 2), la motivazione principale è stata la ricerca di un livello di astrazione che potesse nascondere gli aspetti di basso livello, permettendo così al team di concentrasi quasi esclusivamente sulla logica di \textit{business}. Ovviamente vi sono altri vantaggi derivanti dall'adozione di Pi4J e possono essere riassunti in:
@@ -68,11 +69,4 @@ In secondo luogo abbiamo dovuto riportare tutto il protocollo di comunicazione i
 
 Attualmente il controller funziona solo comunicando con dispositivo modello iPhone, occorre più tempo per supportare altri device e rendere tutto più stabile. 
 
-\subsection{Servizi cloud}
-Per quanto riguarda l'implementazione dei servizi cloud è importante specificare che, come indicato sul capitolo 7 deployment, si è deciso di utilizzare un unico database DynamoDB.
-La modellazione dei dati indicata in fase progettuale si è tradotta in tre sole tabelle DynamoDB: le entità di \textit{Administration} sono confluite in un'unica tabella.
-Questo risultato è dovuto al fatto che abbiamo seguito le best-practice per la modellazione dei dati per questo database che 
-XXXXXXXX.
-
-Tralasceremo i tanti dettagli dei singoli servizi che esulano dallo scopo di questo esame e rimandiamo. 
 \newpage

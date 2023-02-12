@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/eco-trip/SC-report/compare/v1.11.0...v1.12.0) (2023-02-12)
+
+
+### Features
+
+* fotos ([96894d8](https://github.com/eco-trip/SC-report/commit/96894d8189b30b6e565d0cd26bc438347d827216))
+
 # [1.11.0](https://github.com/eco-trip/SC-report/compare/v1.10.1...v1.11.0) (2023-02-12)
 
 

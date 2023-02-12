@@ -1,3 +1,10 @@
+## [1.12.1](https://github.com/eco-trip/SC-report/compare/v1.12.0...v1.12.1) (2023-02-12)
+
+
+### Bug Fixes
+
+* group number ([e40e936](https://github.com/eco-trip/SC-report/commit/e40e936e732c1eda8b1b5983aa3f0012b60d2fc1))
+
 # [1.12.0](https://github.com/eco-trip/SC-report/compare/v1.11.0...v1.12.0) (2023-02-12)
 
 

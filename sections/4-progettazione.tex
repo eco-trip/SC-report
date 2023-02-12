@@ -6,7 +6,7 @@
 Una volta chiarificati tutti i requisiti ed i desiderata del cliente, si è passati alla fase di progettazione. Inizialmente si è preferito astrarre dalle tematiche di "basso livello" dando priorità alla definizione di tutti i servizi necessari per il corretto funzionamento del sistema. Nello specifico si parla di microservizi, infatti ogni componente software da sviluppare modella un insieme specifico di concetti, precedentemente identificati nei 9 sottodomini. Un aspetto di cruciale importanza è definire a monte le modalità di interazione tra i vari servizi. Per ognuna di queste è necessario specificare il "fornitore" (\textit{upstream}) ed il "consumatore" (\textit{downstream}), così da stabilire una dipendenza tra le coppie di servizi che vincoli una delle parti ad adattarsi alle regole operative dell'altra.
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{context-map.png}
+    \hspace*{-1.5cm}\includegraphics[width=1.2\textwidth]{context-map.png}
     \centering
     \caption[contextmap]{Schema dei microservizi che compongono Ecotrip}
     \label{fig:contextmap}
@@ -375,14 +375,14 @@ Di particolare interesse è la definizione dello strato \textit{core} mediante c
 \end{itemize}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{images/cu-uml.png}\hfill
+    \hspace*{-1.5cm}\includegraphics[width=1.2\textwidth]{images/cu-uml.png}\hfill
     \caption{\label{cu-uml}Modellazione dei concetti di dominio tramite UML delle classi.}
 \end{figure}
 Nel caso delle rilevazioni, i dati prodotti vengono assegnati ad una specifica istanza di \texttt{Detection} che, oltre includere il valore rilevato, è associata alla data di creazione e ad un \textit{id} che la identifica univocamente. 
 %
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{images/room-monitoring-serivce.png}\hfill
+    \hspace*{-1.5cm}\includegraphics[width=1.17\textwidth]{images/room-monitoring-serivce.png}\hfill
     \caption{\label{rm-uml}Diagramma UML delle classi (\texttt{RoomMonitoringService}).}
 \end{figure}
 %
@@ -390,7 +390,7 @@ Infine la logica di monitoraggio della stanza (\textit{Room Monitoring}) è racc
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{images/room-monitoring-service-state-diagram.jpeg}\hfill
+    \hspace*{-1.5cm}\includegraphics[width=1.2\textwidth]{images/room-monitoring-service-state-diagram.jpeg}\hfill
     \caption{\label{rm-uml-state}Diagramma UML di stato (\texttt{RoomMonitoringService}).}
 \end{figure}
 

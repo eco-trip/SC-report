@@ -29,10 +29,9 @@ I sensori previsti per il primo prototipo di Ecotrip sono:
     \item 1 sensore di umidità ambientale
 \end{itemize}
 
-La centralina comprende anche un insieme di sensori per identificare se l'ospite
+La centralina comprende anche un metodo per identificare se l'ospite
 è presente nella camera o meno: questo specifico aspetto viene lasciato per
-sviluppi successivi al primo prototipo, il quale "rileverà" la presenza
-dell'ospite attraverso un semplice interruttore meccanico. Nel prodotto finale
+sviluppi successivi al primo prototipo. Nel prodotto finale
 prevediamo invece due possibilità:
 \begin{itemize}
     \item nel caso in cui la camera dispone già di una centralina che accende e spegne
@@ -106,7 +105,7 @@ Presentatiamo i casi d'uso principali suddivisi per contesto (pannello di contro
 identificati a partire dai requisiti utente di cui sopra. 
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{control-panel-usecase.png}
+    \hspace*{-1.5cm}\includegraphics[width=1.2\textwidth]{control-panel-usecase.png}
     \centering
     \caption[control-panel-usecase]{Schema dei casi d'uso del pannello di controllo.}
     \label{fig:cp-usecase}
@@ -120,7 +119,7 @@ identificati a partire dai requisiti utente di cui sopra.
 \end{figure}
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{guest-authorization-use-case.png}
+    \hspace*{-1.5cm}\includegraphics[width=1.2\textwidth]{guest-authorization-use-case.png}
     \centering
     \caption[guest-authorization-usecase]{Schema dei casi d'uso del meccanismo di autorizzazione dell'ospite.}
     \label{fig:guest-authorization-usecase}
@@ -160,113 +159,122 @@ Un sottodominio (o un piccolo gruppo di questi) rappresenta un sotto-progetto in
 Dettagliamo di seguito i requisiti di sistema funzionali suddivisi per i diversi sottodomini del sistema Ecotrip.
 Successivamente specifichiamo i requisiti non funzionali.
 
-\begin{itemize}
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\labelenumi}{\theenumi}
+\renewcommand{\theenumii}{\theenumi.\arabic{enumii}}
+\renewcommand{\labelenumii}{\theenumii}
+\renewcommand{\theenumiii}{\theenumii.\arabic{enumiii}}
+\renewcommand{\labelenumiii}{\theenumiii}
+\renewcommand{\theenumiv}{\theenumiii.\arabic{enumiv}}
+\renewcommand{\labelenumiv}{\theenumiv}
+
+\begin{enumerate}
     \item Requisiti funzionali
 
-    \begin{itemize}
+    \begin{enumerate}
         \item Authentication
-        \begin{itemize}
+        \begin{enumerate}
             \item Autenticazione utenti con email e password
             \item Registrazione nuovi utenti
             \item Ruoli previsti: amministratori ecotrip e albergatori
-        \end{itemize}
-    \end{itemize}
+        \end{enumerate}
+    \end{enumerate}
 
-    \begin{itemize}
+    \begin{enumerate}
         \item Room Monitoring
-        \begin{itemize}
+        \begin{enumerate}
             \item Raccolta dati con campionamento ogni secondo da diversi sensori
-            \begin{itemize}
+            \begin{enumerate}
                 \item Rilevazione del consumo energetico con sensore di corrente
                 \item Rilevazione del consumo di acqua tramite due flussometri
                 \item Rilevazione della temperatura di acqua calda / fredda tramite due sensori di temperatura
                 \item Rilevazione dello stato delle tende (aperte/chiuse) della stanza attraverso un sensore di luminosità installato su ogni finestra
                 \item Rilevazione della temperatura della stanza mediante un sensore di temperatura ambientale
                 \item Rilevazione della percentuale di umidità della stanza tramite un sensore di umidità ambientale
-            \end{itemize}
+            \end{enumerate}
             \item Identificazione presenza ospite all'interno della stanza (opzionale)
             \item Aggregazione dati campionati ogni 5 secondi
-            \begin{itemize}
+            \begin{enumerate}
                 \item Calcolo del consumo energetico
                 \item Calcolo del consumo di acqua
-            \end{itemize}
+            \end{enumerate}
             \item Invio ogni 5 secondi dei dati rilevati ed aggregati a piattaforma cloud
-        \end{itemize}
-    \end{itemize}
+        \end{enumerate}
+    \end{enumerate}
 
-    \begin{itemize}
+    \begin{enumerate}
         \item Guest Authorization
-        \begin{itemize}
+        \begin{enumerate}
             \item Generazione token univoco, firmato e verificabile al checkin dell'ospite contenete identificativi di hotel, stanza e pernottamento
             \item Sincronizzazione su centralina del token generato in remoto
             \item Controllo sensore NFC su centralina per trasferire il token a dispotivo mobile
             \item Il tag NFC deve funzionare in modo da avviare sullo smartphone la web app Ecotrip senza azione dell'utente, 
                     ma solo all'avvicinamento del dispositivo al tag
-        \end{itemize}
-    \end{itemize}
+        \end{enumerate}
+    \end{enumerate}
 
-    \begin{itemize}
+    \begin{enumerate}
         \item Control Unit Management
-        \begin{itemize}
+        \begin{enumerate}
             \item Configurazione da parte degli amministratori Ecotrip di nuove centraline installate assegnando identificativo di hotel e stanza
             \item Verifica dello stato di funzionamento da remoto da parte degli amministratori Ecotrip
-        \end{itemize}
-    \end{itemize}
+        \end{enumerate}
+    \end{enumerate}
 
-    \begin{itemize}
+    \begin{enumerate}
         \item Control Unit Maintenance
-        \begin{itemize}
+        \begin{enumerate}
             \item Accesso da remoto a centralina installata da parte agli amministratori Ecotrip
             \item Aggiornamento automatico del software della centralina
-        \end{itemize}
-    \end{itemize}
+        \end{enumerate}
+    \end{enumerate}
 
-    \begin{itemize}
+    \begin{enumerate}
         \item Hotel Management
-        \begin{itemize}
+        \begin{enumerate}
             \item Accesso a pannello di controllo riservato solo agli amministratori ecotrip
             \item Gestione completa degli hotel con informazioni quali: identificativo, nome, indirizzo e costo dell'energia nei termini di CO2/Kilowatt
             \item Possibilità di creare l'account dell'albergatore per un hotel
             \item Gestione completa delle camere di un'hotel con informazioni quali: identificativo e numero
-        \end{itemize}
-    \end{itemize}
+        \end{enumerate}
+    \end{enumerate}
 
-    \begin{itemize}
+    \begin{enumerate}
         \item Stay Management
-        \begin{itemize}
+        \begin{enumerate}
             \item Accesso a pannello di controllo riservato agli amministratori ecotrip ed all'albergatore proprietario dell'hotel
             \item Visualizzazione dei pernottamenti suddivisi per camera
             \item Per ogni camera possibilità di eseguire check-in e check-out di un ospite
             \item Visualizzazione del punteggio "sostenibilità" del pernottamento con relativo consumo totale di CO2
             \item Visualizzazione dei consumi istantanei di una camera
-        \end{itemize}
-    \end{itemize}
+        \end{enumerate}
+    \end{enumerate}
 
-    \begin{itemize}
+    \begin{enumerate}
         \item Data Elaboration
-        \begin{itemize}
+        \begin{enumerate}
             \item Calcolo della CO2 a partire dai dati di un pernottamento
             \item Algoritmo per il calcolo del punteggio "sostenibilità" di un pernottamento a partire dalla CO2 generata e considerando il comportamento tenuto dall'ospite:
-            \begin{itemize}
+            \begin{enumerate}
                 \item uso eccessivo di acqua
                 \item uscire dalla camera lasciando il condizionatore accesso e le tende aperte di giorno  
-            \end{itemize}
-        \end{itemize}
-    \end{itemize}
+            \end{enumerate}
+        \end{enumerate}
+    \end{enumerate}
 
-    \begin{itemize}
+    \begin{enumerate}
         \item Guest App
-        \begin{itemize}
+        \begin{enumerate}
             \item Avvio automatico con avvicinamento del dispositivo mobile al tag NFC
             \item Visualizzazione dei dati del pernottamento corrente: informazioni generali, consumo CO2 e "punteggio sostenibilità"
             \item Visualizzazione dei dati dei pernottamenti passati
-        \end{itemize}
-    \end{itemize}
+        \end{enumerate}
+    \end{enumerate}
     
     \item Requisiti non funzionali
-    \begin{itemize}
+    \begin{enumerate}
         \item Garantire privacy per gli ospiti sia per quanto riguarda la scelta dei meccanismi/sensori utilizzati dalla centralina, 
                 sia per quanto concerne la possibilità che qualcuno possa accedere ai dati non propri (esempio ospiti che accedono a dati di altri ospiti)
         \item Scalabilità del sistema cloud all'occorrenza, sia per quanto concerne la ricezione ed elaborazione dei dati che per gli ospiti connessi
-    \end{itemize}
-\end{itemize}
+    \end{enumerate}
+\end{enumerate}

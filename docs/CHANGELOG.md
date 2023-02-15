@@ -1,3 +1,65 @@
+## [1.12.1](https://github.com/eco-trip/SC-report/compare/v1.12.0...v1.12.1) (2023-02-12)
+
+
+### Bug Fixes
+
+* group number ([e40e936](https://github.com/eco-trip/SC-report/commit/e40e936e732c1eda8b1b5983aa3f0012b60d2fc1))
+
+# [1.12.0](https://github.com/eco-trip/SC-report/compare/v1.11.0...v1.12.0) (2023-02-12)
+
+
+### Features
+
+* fotos ([96894d8](https://github.com/eco-trip/SC-report/commit/96894d8189b30b6e565d0cd26bc438347d827216))
+
+# [1.11.0](https://github.com/eco-trip/SC-report/compare/v1.10.1...v1.11.0) (2023-02-12)
+
+
+### Features
+
+* final ([a9e3bf3](https://github.com/eco-trip/SC-report/commit/a9e3bf3a2bdc26140aecaaeaeb9d8f30d76b8204))
+
+## [1.10.1](https://github.com/eco-trip/SC-report/compare/v1.10.0...v1.10.1) (2023-02-12)
+
+
+### Bug Fixes
+
+* final review ([f12a88d](https://github.com/eco-trip/SC-report/commit/f12a88d078b94f0ea0f52b95e3e35b0e5839061a))
+
+# [1.10.0](https://github.com/eco-trip/SC-report/compare/v1.9.0...v1.10.0) (2023-02-12)
+
+
+### Features
+
+* latest review ([9b2bc33](https://github.com/eco-trip/SC-report/commit/9b2bc335bb2ced58ea438ba14f0765c6f9efbb39))
+
+# [1.9.0](https://github.com/eco-trip/SC-report/compare/v1.8.0...v1.9.0) (2023-02-11)
+
+
+### Features
+
+* implementazione ([4a01d7b](https://github.com/eco-trip/SC-report/commit/4a01d7b67b9c7cb570513c7a3fd074b281e3640b))
+
+# [1.8.0](https://github.com/eco-trip/SC-report/compare/v1.7.0...v1.8.0) (2023-02-11)
+
+
+### Bug Fixes
+
+* deployment ([61de6f4](https://github.com/eco-trip/SC-report/commit/61de6f4a6b8ee03777b801215e1f5cc97c2731ca))
+* interruttore stanza ([69026fc](https://github.com/eco-trip/SC-report/commit/69026fc0636d67fd63d22154c10084b1cfe63363))
+
+
+### Features
+
+* testing ([1ba007c](https://github.com/eco-trip/SC-report/commit/1ba007c651ef41a5d60d8469ea19372cf5d98ec2))
+
+# [1.7.0](https://github.com/eco-trip/SC-report/compare/v1.6.1...v1.7.0) (2023-02-11)
+
+
+### Features
+
+* add conclusions ([6d24ffb](https://github.com/eco-trip/SC-report/commit/6d24ffbc880fc8fc438cf14ab3ed42ff94aceb2a))
+
 ## [1.6.1](https://github.com/eco-trip/SC-report/compare/v1.6.0...v1.6.1) (2023-02-09)
 
 
